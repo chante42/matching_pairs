@@ -1,7 +1,7 @@
 // mods by Patrick OReilly 
 // twitter: @pato_reilly
 
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(1010, 800, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
 
@@ -32,7 +32,7 @@ var marker;
 var currentTile;
 var currentTilePosition;
 
-var tileBack = 35;
+var tileBack = 63;
 var timesUp = '+';
 var youWin = '+';
 
@@ -52,7 +52,7 @@ function create() {
         //layer.resizeWorld();
 
         marker = game.add.graphics();
-        marker.lineStyle(2, 0x00FF00, 1);
+        marker.lineStyle(2, 0xFF0000, 1);
         marker.drawRect(0, 0, 100, 100);
     
     randomizeTiles();
@@ -63,7 +63,7 @@ function update() {
     
     countDownTimer();
     
-    if (layer.getTileX(game.input.activePointer.worldX) <= 5) // to prevent the marker from going out of bounds
+    if (layer.getTileX(game.input.activePointer.worldX) <= 7) // to prevent the marker from going out of bounds
     {
         marker.x = layer.getTileX(game.input.activePointer.worldX) * 100;
         marker.y = layer.getTileY(game.input.activePointer.worldY) * 100;
@@ -102,7 +102,7 @@ function countDownTimer() {
 function processClick() {
    
     currentTile = map.getTile(layer.getTileX(marker.x), layer.getTileY(marker.y));
-    currentTilePosition = ((layer.getTileY(game.input.activePointer.worldY)+1)*6)-(6-(layer.getTileX(game.input.activePointer.worldX)+1));
+    currentTilePosition = ((layer.getTileY(game.input.activePointer.worldY)+1)*8)-(8-(layer.getTileX(game.input.activePointer.worldX)+1));
         
     if (game.input.mousePointer.isDown)
         {
@@ -124,7 +124,7 @@ function processClick() {
                 {
                     masterCounter++;    
                     
-                    if (masterCounter == 18) 
+                    if (masterCounter == 32) 
                     {
                         // go "win"
                         youWin = 'Got them all!';
@@ -164,11 +164,11 @@ function flipBack() {
  
 function randomizeTiles() {
 
-    for (num = 1; num <= 18; num++)
+    for (num = 1; num <= 32; num++)
     {
         startList.push(num);
     }
-    for (num = 1; num <= 18; num++)
+    for (num = 1; num <= 32; num++)
     {
         startList.push(num);
     }
@@ -177,7 +177,7 @@ function randomizeTiles() {
     myString1 = startList.toString();
   
     // randomize squareList
-    for (i = 1; i <=36; i++)
+    for (i = 1; i <=64; i++)
     {
         var randomPosition = game.rnd.integerInRange(0,startList.length - 1);
 
@@ -192,9 +192,9 @@ function randomizeTiles() {
     // for debugging
     myString2 = squareList.toString();
   
-    for (col = 0; col < 6; col++)
+    for (col = 0; col < 8; col++)
     {
-        for (row = 0; row < 6; row++)
+        for (row = 0; row < 8; row++)
         {
             map.putTile(tileBack, col, row);
         }
@@ -209,23 +209,23 @@ function getHiddenTile() {
 
 function render() {
 
-    game.debug.text(timesUp, 620, 208, 'rgb(0,255,0)');
-    game.debug.text(youWin, 620, 240, 'rgb(0,255,0)');
+    game.debug.text(timesUp, 820, 208, 'rgb(0,255,0)');
+    game.debug.text(youWin, 820, 240, 'rgb(0,255,0)');
 
-    game.debug.text('Time: ' + myCountdownSeconds, 620, 15, 'rgb(0,255,0)');
+    game.debug.text('Time: ' + myCountdownSeconds, 820, 15, 'rgb(0,255,0)');
 
     //game.debug.text('squareCounter: ' + squareCounter, 620, 272, 'rgb(0,0,255)');
-    game.debug.text('Matched Pairs: ' + masterCounter, 620, 304, 'rgb(0,0,255)');
+    game.debug.text('Matched Pairs: ' + masterCounter, 820, 304, 'rgb(0,0,255)');
 
     //game.debug.text('startList: ' + myString1, 620, 208, 'rgb(255,0,0)');
-    game.debug.text('squareList: ' + myString2, 620, 240, 'rgb(255,0,0)');
+    game.debug.text('squareList: ' + myString2, 820, 240, 'rgb(255,0,0)');
 
 
     //game.debug.text('Tile: ' + map.getTile(layer.getTileX(marker.x), layer.getTileY(marker.y)).index, 620, 48, 'rgb(255,0,0)');
 
-    game.debug.text('LayerX: ' + layer.getTileX(marker.x), 620, 80, 'rgb(255,0,0)');
-    game.debug.text('LayerY: ' + layer.getTileY(marker.y), 620, 112, 'rgb(255,0,0)');
+    game.debug.text('LayerX: ' + layer.getTileX(marker.x), 820, 80, 'rgb(255,0,0)');
+    game.debug.text('LayerY: ' + layer.getTileY(marker.y), 820, 112, 'rgb(255,0,0)');
 
-    game.debug.text('Tile Position: ' + currentTilePosition, 620, 144, 'rgb(255,0,0)');
-    game.debug.text('Hidden Tile: ' + getHiddenTile(), 620, 176, 'rgb(255,0,0)');
+    game.debug.text('Tile Position: ' + currentTilePosition, 820, 144, 'rgb(255,0,0)');
+    game.debug.text('Hidden Tile: ' + getHiddenTile(), 820, 176, 'rgb(255,0,0)');
 }
