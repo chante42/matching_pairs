@@ -56,6 +56,7 @@ function create() {
         marker.drawRect(0, 0, 100, 100);
     
     randomizeTiles();
+    //flipOverAll();
 
 }
 
@@ -79,6 +80,7 @@ function update() {
     else
     {
         processClick();
+        
     }
 }
    
@@ -111,7 +113,7 @@ function processClick() {
         {
             // get the corresponding item out of squareList
                 currentNum = squareList[currentTilePosition-1];
-            flipOver();
+                flipOver();
                 squareCounter++;
             // is the second tile of pair flipped?
             if  (squareCounter == 2) 
@@ -120,7 +122,7 @@ function processClick() {
                 squareCounter = 0;
                 square2Num = currentNum;
                 // check for match
-                if (square1Num == square2Num)
+                if (square1Num %32 == square2Num %32 )
                 {
                     masterCounter++;    
                     
@@ -153,6 +155,18 @@ function flipOver() {
     map.putTile(currentNum, layer.getTileX(marker.x), layer.getTileY(marker.y));
 }
  
+function flipOverAll() {
+    for (i= 1; i<= 64; i++) {
+        y= Math.trunc(i/8);
+        x= i - y * 8;
+
+        map.putTile(i, x , y );    
+        console.log(i + ":x="+x+"y="+y);
+    }
+    
+
+}
+
 function flipBack() {
         
     flipFlag = false;
@@ -164,11 +178,12 @@ function flipBack() {
  
 function randomizeTiles() {
 
-    for (num = 1; num <= 32; num++)
+    for (num = 1; num <= 26; num++)
     {
+        //startList.push(num);
         startList.push(num);
     }
-    for (num = 1; num <= 32; num++)
+    for (num = 32; num <= 32+26; num++)
     {
         startList.push(num);
     }
