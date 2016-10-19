@@ -33,6 +33,9 @@ var currentTile;
 var currentTilePosition;
 
 var tileBack = 63;
+var NbCaseRemplie = 26*2;
+
+
 var timesUp = '+';
 var youWin = '+';
 
@@ -56,6 +59,7 @@ function create() {
         marker.drawRect(0, 0, 100, 100);
     
     randomizeTiles();
+    //debug
     //flipOverAll();
 
 }
@@ -122,7 +126,7 @@ function processClick() {
                 squareCounter = 0;
                 square2Num = currentNum;
                 // check for match
-                if (square1Num %32 == square2Num %32 )
+                if (square1Num != square2Num && square1Num %32 == square2Num %32 )
                 {
                     masterCounter++;    
                     
@@ -156,11 +160,11 @@ function flipOver() {
 }
  
 function flipOverAll() {
-    for (i= 1; i<= 64; i++) {
+    for (i= 0; i< 64; i++) {
         y= Math.trunc(i/8);
         x= i - y * 8;
 
-        map.putTile(i, x , y );    
+        map.putTile(squareList[i], x , y );    
         console.log(i + ":x="+x+"y="+y);
     }
     
@@ -178,14 +182,29 @@ function flipBack() {
  
 function randomizeTiles() {
 
-    for (num = 1; num <= 26; num++)
+    //  remplissage des cartes que l'on peux 
+    // 
+    for (num = 1; num <= NbCaseRemplie / 2 ; num++)
     {
-        //startList.push(num);
         startList.push(num);
     }
-    for (num = 32; num <= 32+26; num++)
+    for (num = 33; num <= 32+NbCaseRemplie / 2 ; num++)
     {
         startList.push(num);
+    }
+
+    //
+    // s'il reste des trous tirage aléatoire en mettaunt une carte de chaque 32=>x>0 et 64=>x>32
+    nbItem = startList.length;
+    a=0;
+    for (i = nbItem; i<= 64; i++ ) {
+        var random = game.rnd.integerInRange(1,nbItem/2);
+
+        // permet que ce ne soit pas toujours la premiere partie de l image en premeier
+        a++;
+        startList.push(random+ (a % 2) *32);
+        a++;
+        startList.push(random+ (a % 2) *32);
     }
 
     // for debugging
@@ -206,6 +225,8 @@ function randomizeTiles() {
     
     // for debugging
     myString2 = squareList.toString();
+    console.log('squareList'+squareList.toString());
+    console.log('startList'+startList.toString());
   
     for (col = 0; col < 8; col++)
     {
@@ -232,8 +253,8 @@ function render() {
     //game.debug.text('squareCounter: ' + squareCounter, 620, 272, 'rgb(0,0,255)');
     game.debug.text('Matched Pairs: ' + masterCounter, 820, 304, 'rgb(0,0,255)');
 
-    //game.debug.text('startList: ' + myString1, 620, 208, 'rgb(255,0,0)');
-    game.debug.text('squareList: ' + myString2, 820, 240, 'rgb(255,0,0)');
+    //game.debug.text('startList: ' + myString1, 820, 208, 'rgb(255,0,0)');
+    //game.debug.text('squareList: ' + myString2, 820, 240, 'rgb(255,0,0)');
 
 
     //game.debug.text('Tile: ' + map.getTile(layer.getTileX(marker.x), layer.getTileY(marker.y)).index, 620, 48, 'rgb(255,0,0)');
