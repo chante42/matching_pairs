@@ -34,7 +34,7 @@ var currentTilePosition;
 
 var tileBack = 63;
 var NbCaseRemplie = 26*2;
-
+var LargeurJeux = 8;
 
 var timesUp = '+';
 var youWin = '+';
@@ -68,7 +68,7 @@ function update() {
     
     countDownTimer();
     
-    if (layer.getTileX(game.input.activePointer.worldX) <= 7) // to prevent the marker from going out of bounds
+    if (layer.getTileX(game.input.activePointer.worldX) <= LargeurJeux - 1) // to prevent the marker from going out of bounds
     {
         marker.x = layer.getTileX(game.input.activePointer.worldX) * 100;
         marker.y = layer.getTileY(game.input.activePointer.worldY) * 100;
@@ -108,7 +108,7 @@ function countDownTimer() {
 function processClick() {
    
     currentTile = map.getTile(layer.getTileX(marker.x), layer.getTileY(marker.y));
-    currentTilePosition = ((layer.getTileY(game.input.activePointer.worldY)+1)*8)-(8-(layer.getTileX(game.input.activePointer.worldX)+1));
+    currentTilePosition = ((layer.getTileY(game.input.activePointer.worldY)+1)*LargeurJeux)-(LargeurJeux-(layer.getTileX(game.input.activePointer.worldX)+1));
         
     if (game.input.mousePointer.isDown)
         {
@@ -126,12 +126,11 @@ function processClick() {
                 squareCounter = 0;
                 square2Num = currentNum;
                 // check for match
-                if (square1Num != square2Num && square1Num %32 == square2Num %32 )
+                if (square1Num != square2Num && square1Num %(LargeurJeux*LargeurJeux/2) == square2Num %(LargeurJeux*LargeurJeux/2) )
                 {
                     masterCounter++;    
                     
-                    if (masterCounter == 32) 
-                    {
+                    if (masterCounter == (LargeurJeux*LargeurJeux/2) ) {
                         // go "win"
                         youWin = 'Got them all!';
                     }                       
@@ -161,8 +160,8 @@ function flipOver() {
  
 function flipOverAll() {
     for (i= 0; i< 64; i++) {
-        y= Math.trunc(i/8);
-        x= i - y * 8;
+        y= Math.trunc(i/LargeurJeux);
+        x= i - y * LargeurJeux;
 
         map.putTile(squareList[i], x , y );    
         console.log(i + ":x="+x+"y="+y);
@@ -184,12 +183,10 @@ function randomizeTiles() {
 
     //  remplissage des cartes que l'on peux 
     // 
-    for (num = 1; num <= NbCaseRemplie / 2 ; num++)
-    {
+    for (num = 1; num <= NbCaseRemplie / 2 ; num++) {
         startList.push(num);
     }
-    for (num = 33; num <= 32+NbCaseRemplie / 2 ; num++)
-    {
+    for (num = (LargeurJeux*LargeurJeux/2)+1; num <= (LargeurJeux*LargeurJeux/2)+NbCaseRemplie / 2 ; num++) {
         startList.push(num);
     }
 
@@ -197,22 +194,21 @@ function randomizeTiles() {
     // s'il reste des trous tirage aléatoire en mettaunt une carte de chaque 32=>x>0 et 64=>x>32
     nbItem = startList.length;
     a=0;
-    for (i = nbItem; i<= 64; i++ ) {
+    for (i = nbItem; i<= (LargeurJeux*LargeurJeux); i++ ) {
         var random = game.rnd.integerInRange(1,nbItem/2);
 
         // permet que ce ne soit pas toujours la premiere partie de l image en premeier
         a++;
-        startList.push(random+ (a % 2) *32);
+        startList.push(random+ (a % 2) *(LargeurJeux*LargeurJeux/2));
         a++;
-        startList.push(random+ (a % 2) *32);
+        startList.push(random+ (a % 2) *(LargeurJeux*LargeurJeux/2));
     }
 
     // for debugging
     myString1 = startList.toString();
   
     // randomize squareList
-    for (i = 1; i <=64; i++)
-    {
+    for (i = 1; i <=(LargeurJeux*LargeurJeux); i++) {
         var randomPosition = game.rnd.integerInRange(0,startList.length - 1);
 
         var thisNumber = startList[ randomPosition ];
@@ -228,10 +224,8 @@ function randomizeTiles() {
     console.log('squareList'+squareList.toString());
     console.log('startList'+startList.toString());
   
-    for (col = 0; col < 8; col++)
-    {
-        for (row = 0; row < 8; row++)
-        {
+    for (col = 0; col < LargeurJeux; col++) {
+        for (row = 0; row < LargeurJeux; row++) {
             map.putTile(tileBack, col, row);
         }
     }
@@ -245,6 +239,7 @@ function getHiddenTile() {
 
 function render() {
 
+    game.debug.text('LargeurJeux : '+LargeurJeux, 820, 40, 'rgb(255,0,0)');
     game.debug.text(timesUp, 820, 208, 'rgb(0,255,0)');
     game.debug.text(youWin, 820, 240, 'rgb(0,255,0)');
 
