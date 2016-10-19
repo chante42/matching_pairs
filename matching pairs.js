@@ -1,12 +1,17 @@
 // mods by Patrick OReilly 
 // twitter: @pato_reilly
 
-var game = new Phaser.Game(1010, 800, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var tileBack = 63;
+var NbCaseRemplie = 26*2;
+var LargeurJeux = 4;
+
+
+var game = new Phaser.Game(LargeurJeux *100 +210 , LargeurJeux * 100, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
 
     game.load.tilemap('matching', 'phaser_tiles.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'phaser_tiles.png');//, 100, 100, -1, 1, 1);    
+    game.load.image('tiles', 'phaser_tiles.png', LargeurJeux * 100 , LargeurJeux * 100, -1, 1, 1);    
 }
 
 var timeCheck = 0;
@@ -32,9 +37,6 @@ var marker;
 var currentTile;
 var currentTilePosition;
 
-var tileBack = 63;
-var NbCaseRemplie = 26*2;
-var LargeurJeux = 8;
 
 var timesUp = '+';
 var youWin = '+';
@@ -126,7 +128,7 @@ function processClick() {
                 squareCounter = 0;
                 square2Num = currentNum;
                 // check for match
-                if (square1Num != square2Num && square1Num %(LargeurJeux*LargeurJeux/2) == square2Num %(LargeurJeux*LargeurJeux/2) )
+                if (square1Num != square2Num && square1Num %(32) == square2Num %(32) )
                 {
                     masterCounter++;    
                     
@@ -181,28 +183,19 @@ function flipBack() {
  
 function randomizeTiles() {
 
-    //  remplissage des cartes que l'on peux 
-    // 
-    for (num = 1; num <= NbCaseRemplie / 2 ; num++) {
-        startList.push(num);
-    }
-    for (num = (LargeurJeux*LargeurJeux/2)+1; num <= (LargeurJeux*LargeurJeux/2)+NbCaseRemplie / 2 ; num++) {
-        startList.push(num);
-    }
-
-    //
+        //
     // s'il reste des trous tirage aléatoire en mettaunt une carte de chaque 32=>x>0 et 64=>x>32
     nbItem = startList.length;
-    a=0;
-    for (i = nbItem; i<= (LargeurJeux*LargeurJeux); i++ ) {
-        var random = game.rnd.integerInRange(1,nbItem/2);
+    console.log('nbItem:'+nbItem+" max for  "+LargeurJeux*LargeurJeux);
+    
+    for (i = 1; i<= (LargeurJeux*LargeurJeux);i+=2 ) {
+        var random = game.rnd.integerInRange(1,NbCaseRemplie/2);
 
         // permet que ce ne soit pas toujours la premiere partie de l image en premeier
-        a++;
-        startList.push(random+ (a % 2) *(LargeurJeux*LargeurJeux/2));
-        a++;
-        startList.push(random+ (a % 2) *(LargeurJeux*LargeurJeux/2));
+        startList.push(random);
+        startList.push(random+ 32);
     }
+    console.log('startList'+startList.toString());
 
     // for debugging
     myString1 = startList.toString();
