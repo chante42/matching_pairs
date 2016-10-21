@@ -7,7 +7,7 @@ var LargeurJeux = 4;
 var HauteurJeux = LargeurJeux;
 
 
-var game = new Phaser.Game(LargeurJeux *100 , LargeurJeux * 100, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(LargeurJeux *100 +210 , LargeurJeux * 100, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
 
@@ -64,7 +64,7 @@ function create() {
     
     randomizeTiles();
     //debug
-    //flipOverAll();
+    flipOverAll();
 
 }
 
@@ -190,9 +190,14 @@ function randomizeTiles() {
     nbItem = startList.length;
     console.log('nbItem:'+nbItem+" max for  "+HauteurJeux*LargeurJeux);
     
-    for (i = 1; i<= (LargeurJeux*HauteurJeux);i+=2 ) {
-        var random = game.rnd.integerInRange(1,NbCaseRemplie/2);
 
+    for (i = 1; i<= (LargeurJeux*HauteurJeux)/2;i++ ) {
+        var random;
+
+        random = i;
+        if (i > NbCaseRemplie/2) {
+            random = game.rnd.integerInRange(1,NbCaseRemplie/2);
+        }
         // permet que ce ne soit pas toujours la premiere partie de l image en premeier
         startList.push(random);
         startList.push(random+ 32);
