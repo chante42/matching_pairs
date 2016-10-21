@@ -64,7 +64,7 @@ function create() {
     
     randomizeTiles();
     //debug
-    flipOverAll();
+    //flipOverAll();
 
 }
 
