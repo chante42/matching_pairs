@@ -4,14 +4,16 @@
 var tileBack = 63;
 var NbCaseRemplie = 26*2;
 var LargeurJeux = 4;
+var HauteurJeux = LargeurJeux;
 
 
-var game = new Phaser.Game(LargeurJeux *100 +210 , LargeurJeux * 100, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(LargeurJeux *100 , LargeurJeux * 100, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
 
     game.load.tilemap('matching', 'phaser_tiles.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'phaser_tiles.png', LargeurJeux * 100 , LargeurJeux * 100, -1, 1, 1);    
+    
+    game.load.image('tiles', 'phaser_tiles.png', LargeurJeux * 100 , HauteurJeux * 100, -1, 1, 1);    
 }
 
 var timeCheck = 0;
@@ -47,7 +49,7 @@ var myCountdownSeconds;
 function create() {
 
         map = game.add.tilemap('matching');
-
+        
         map.addTilesetImage('Desert', 'tiles');
 
         //tileset = game.add.tileset('tiles');
@@ -132,7 +134,7 @@ function processClick() {
                 {
                     masterCounter++;    
                     
-                    if (masterCounter == (LargeurJeux*LargeurJeux/2) ) {
+                    if (masterCounter == (LargeurJeux*HauteurJeux/2) ) {
                         // go "win"
                         youWin = 'Got them all!';
                     }                       
@@ -186,9 +188,9 @@ function randomizeTiles() {
         //
     // s'il reste des trous tirage aléatoire en mettaunt une carte de chaque 32=>x>0 et 64=>x>32
     nbItem = startList.length;
-    console.log('nbItem:'+nbItem+" max for  "+LargeurJeux*LargeurJeux);
+    console.log('nbItem:'+nbItem+" max for  "+HauteurJeux*LargeurJeux);
     
-    for (i = 1; i<= (LargeurJeux*LargeurJeux);i+=2 ) {
+    for (i = 1; i<= (LargeurJeux*HauteurJeux);i+=2 ) {
         var random = game.rnd.integerInRange(1,NbCaseRemplie/2);
 
         // permet que ce ne soit pas toujours la premiere partie de l image en premeier
@@ -201,7 +203,7 @@ function randomizeTiles() {
     myString1 = startList.toString();
   
     // randomize squareList
-    for (i = 1; i <=(LargeurJeux*LargeurJeux); i++) {
+    for (i = 1; i <=(LargeurJeux*HauteurJeux); i++) {
         var randomPosition = game.rnd.integerInRange(0,startList.length - 1);
 
         var thisNumber = startList[ randomPosition ];
@@ -217,7 +219,7 @@ function randomizeTiles() {
     console.log('squareList'+squareList.toString());
     console.log('startList'+startList.toString());
   
-    for (col = 0; col < LargeurJeux; col++) {
+    for (col = 0; col < HauteurJeux; col++) {
         for (row = 0; row < LargeurJeux; row++) {
             map.putTile(tileBack, col, row);
         }
@@ -232,24 +234,25 @@ function getHiddenTile() {
 
 function render() {
 
-    game.debug.text('LargeurJeux : '+LargeurJeux, 820, 40, 'rgb(255,0,0)');
-    game.debug.text(timesUp, 820, 208, 'rgb(0,255,0)');
-    game.debug.text(youWin, 820, 240, 'rgb(0,255,0)');
+var posx = LargeurJeux *100 +20;
+    game.debug.text('LargeurJeux : '+LargeurJeux, posx, 40, 'rgb(255,0,0)');
+    game.debug.text(timesUp, posx, 208, 'rgb(0,255,0)');
+    game.debug.text(youWin, posx, 240, 'rgb(0,255,0)');
 
-    game.debug.text('Time: ' + myCountdownSeconds, 820, 15, 'rgb(0,255,0)');
+    game.debug.text('Time: ' + myCountdownSeconds, posx, 15, 'rgb(0,255,0)');
 
     //game.debug.text('squareCounter: ' + squareCounter, 620, 272, 'rgb(0,0,255)');
-    game.debug.text('Matched Pairs: ' + masterCounter, 820, 304, 'rgb(0,0,255)');
+    game.debug.text('Matched Pairs: ' + masterCounter, posx, 304, 'rgb(0,0,255)');
 
-    //game.debug.text('startList: ' + myString1, 820, 208, 'rgb(255,0,0)');
-    //game.debug.text('squareList: ' + myString2, 820, 240, 'rgb(255,0,0)');
+    //game.debug.text('startList: ' + myString1, posx, 208, 'rgb(255,0,0)');
+    //game.debug.text('squareList: ' + myString2, posx, 240, 'rgb(255,0,0)');
 
 
     //game.debug.text('Tile: ' + map.getTile(layer.getTileX(marker.x), layer.getTileY(marker.y)).index, 620, 48, 'rgb(255,0,0)');
 
-    game.debug.text('LayerX: ' + layer.getTileX(marker.x), 820, 80, 'rgb(255,0,0)');
-    game.debug.text('LayerY: ' + layer.getTileY(marker.y), 820, 112, 'rgb(255,0,0)');
+    game.debug.text('LayerX: ' + layer.getTileX(marker.x), posx, 80, 'rgb(255,0,0)');
+    game.debug.text('LayerY: ' + layer.getTileY(marker.y), posx, 112, 'rgb(255,0,0)');
 
-    game.debug.text('Tile Position: ' + currentTilePosition, 820, 144, 'rgb(255,0,0)');
-    game.debug.text('Hidden Tile: ' + getHiddenTile(), 820, 176, 'rgb(255,0,0)');
+    game.debug.text('Tile Position: ' + currentTilePosition, posx, 144, 'rgb(255,0,0)');
+    game.debug.text('Hidden Tile: ' + getHiddenTile(), posx, 176, 'rgb(255,0,0)');
 }
