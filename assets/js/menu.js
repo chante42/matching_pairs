@@ -11,6 +11,7 @@ var Menu = {
         // Add a sprite to your game, here the sprite will be the game's logo
         // Parameters are : X , Y , image name (see above) 
         this.add.button(0, 0, 'menu', this.startGame, this);
+        game.add.text(20, 50, "Cliquez pour commencer", { font: "bold 48px sans-serif", fill: "#000000", align: "center"});
     },
 
     //

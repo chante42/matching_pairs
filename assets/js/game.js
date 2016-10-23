@@ -48,7 +48,7 @@ var Game = {
 	    // Repositionne toutes les variables ici, pour le cas ou on rejoue
 	    //
 	    masterCounter=0;
-	    timeLimit = 1 * (LargeurJeux * HauteurJeux * 2) + game.time.totalElapsedSeconds();
+	    timeLimit = 1 * (LargeurJeux * HauteurJeux) * (LargeurJeux * HauteurJeux)/LargeurJeux + game.time.totalElapsedSeconds();
 
 	    timeCheck = 0;
 		flipFlag = false;
@@ -180,7 +180,7 @@ var Game = {
 	    currentTile = map.getTile(layer.getTileX(marker.x), layer.getTileY(marker.y));
 	    currentTilePosition = ((layer.getTileY(game.input.activePointer.worldY)+1)*LargeurJeux)-(LargeurJeux-(layer.getTileX(game.input.activePointer.worldX)+1));
 	        
-	    if (game.input.mousePointer.isDown ){
+	    if (game.input.mousePointer.isDown || game.input.pointer1.isDown){
 	        // check to make sure the tile is not already flipped
 	        if (currentTile != null && currentTile.index == tileBack)
 	        {
