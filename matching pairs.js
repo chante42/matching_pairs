@@ -5,7 +5,7 @@ var tileBack = 63;
 var tileBlack = 32;
 var NbCaseRemplie = 26*2;
 var NbCase = 64;
-var LargeurJeux = 3;
+var LargeurJeux = 2;
 var HauteurJeux = LargeurJeux;
 
 
@@ -295,13 +295,13 @@ function render() {
 
 var posx = LargeurJeux *100 +20;
     //game.debug.text('LargeurJeux : '+LargeurJeux, posx, 40, 'rgb(255,0,0)');
-    game.debug.text(timesUp, posx, 208, 'rgb(0,255,0)');
-    game.debug.text(youWin, posx, 240, 'rgb(0,255,0)');
+    game.debug.text(timesUp, posx, 75, 'rgb(0,255,0)');
+    game.debug.text(youWin, posx, 100, 'rgb(0,255,0)');
 
-    game.debug.text('Time: ' + myCountdownSeconds, posx, 15, 'rgb(0,255,0)');
+    game.debug.text('Temps: ' + myCountdownSeconds, posx, 15, 'rgb(0,255,0)');
 
     //game.debug.text('squareCounter: ' + squareCounter, 620, 272, 'rgb(0,0,255)');
-    game.debug.text('Matched Pairs: ' + masterCounter, posx, 304, 'rgb(0,0,255)');
+    game.debug.text('Paires Trouvées: ' + masterCounter, posx, 40, 'rgb(0,0,255)');
 
     //game.debug.text('startList: ' + myString1, posx, 208, 'rgb(255,0,0)');
     //game.debug.text('squareList: ' + myString2, posx, 240, 'rgb(255,0,0)');
