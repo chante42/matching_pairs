@@ -5,11 +5,12 @@ var tileBack = 63;
 var tileBlack = 32;
 var NbCaseRemplie = 26*2;
 var NbCase = 64;
-var LargeurJeux = 2;
-var HauteurJeux = LargeurJeux;
+var LargeurJeux = 5;
+//var HauteurJeux = LargeurJeux;
+var HauteurJeux = 2;
 
 
-var game = new Phaser.Game(LargeurJeux *100 +210 , LargeurJeux * 100, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(LargeurJeux *100 +210 , HauteurJeux * 100, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 
 var timeCheck = 0;
@@ -271,8 +272,8 @@ function randomizeTiles() {
     console.log('squareList'+squareList.toString());
     console.log('startList'+startList.toString());
   
-    for (col = 0; col < HauteurJeux; col++) {
-        for (row = 0; row < LargeurJeux ; row++) {
+    for (col = 0; col < LargeurJeux; col++) {
+        for (row = 0; row < HauteurJeux ; row++) {
             map.putTile(tileBack, col, row);
         }
     }
