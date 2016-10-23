@@ -12,19 +12,32 @@
 	 <script src = "matching pairs.js"></script>
 	 <meta charset="utf-8">
 
+	 <!--- GOOGLE TAG -->
 	<script type="text/javascript">
 	    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 	    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script type="text/javascript">
+    
 	    try {
 	    var pageTracker = _gat._getTracker("UA-8747440-1");
 	    pageTracker._trackPageview();
 	    } catch(err) {}
 	</script>
 
+	<script language="javascript">
+		//Avant la fermeture de la fenêtre on appelle notre fonction closeIt
+		window.onbeforeunload = closeIt;
+	
+		//Fonction qui va regardé si on ferme la page
+		function closeIt()
+		{
+			return 'En fermant, vous allez interompre le jeux. Etes-vous sûr(e) de vouloir quitter ?';
+		}
+		
+		
+	</script>
+
 </head>
-<body id="page1">
+<body id="page1" >
 	<div id="phaser-example">
 	</div>
 </body>
