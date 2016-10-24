@@ -29,10 +29,10 @@ var currentTilePosition;
 
 
 var timesUp = '+';
-var youWin = '+';
 
 var myCountdownSeconds;
- var timeLimit;
+var timeLimit;
+var InfoPosX;
 
 var Game = {
 	//
@@ -56,7 +56,7 @@ var Game = {
 		startList = new Array();
 		squareList = new Array();
 
-		youWin = '+';
+		InfoPosX = LargeurJeux *HauteurCase +20;
 		timesUp = '+';
 	},
 
@@ -79,7 +79,7 @@ var Game = {
 
 	    marker = game.add.graphics();
 	    marker.lineStyle(2, 0xFF0000, 1);
-	    marker.drawRect(0, 0, 100, 100);
+	    marker.drawRect(0, 0, HauteurCase, HauteurCase);
 	    marker.x = 0;
 	    marker.y = 0;
 
@@ -95,7 +95,7 @@ var Game = {
 	    game.input.keyboard.addKeyCapture([ Phaser.Keyboard.UP, Phaser.Keyboard.DOWN, 
 	        Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
 	    
-	    fondScore = game.add.tileSprite(LargeurJeux* 100, 0, 210 , 800,'fondScore');
+	    fondScore = game.add.tileSprite(LargeurJeux* HauteurCase, 0, 210 , 800,'fondScore');
 	    //debug
 	    //flipOverAll();
 	},
@@ -109,36 +109,36 @@ var Game = {
 	 
 	    if (this.leftKey.isDown)
 	    {
-	        marker.x -= 100;
+	        marker.x -= HauteurCase;
 	        if (marker.x < 0) 
 	            { marker.x=0;}
 	    }
 	    else if (this.rightKey.isDown)
 	    {
-	        marker.x += 100;
-	        if (marker.x > (LargeurJeux - 1) * 100)
-	            { marker.x=(LargeurJeux - 1)*100;}
+	        marker.x += HauteurCase;
+	        if (marker.x > (LargeurJeux - 1) * HauteurCase)
+	            { marker.x=(LargeurJeux - 1)*HauteurCase;}
 	    }
 
 	    if (this.upKey.isDown)
 	    {
-	        marker.y -= 100;
+	        marker.y -= HauteurCase;
 	        if (marker.y < 0) 
 	            { marker.y=0;}
 	    }
 	    else if (this.downKey.isDown)
 	    {
-	        marker.y += 100;
-	        if (marker.y > (HauteurJeux -1) *  100) 
-	            { marker.y=(HauteurJeux - 1) *100;}
+	        marker.y += HauteurCase;
+	        if (marker.y > (HauteurJeux -1) *  HauteurCase) 
+	            { marker.y=(HauteurJeux - 1) *HauteurCase;}
 	        console.log("DOWN X:"+marker.x+" Y:"+marker.y);
 	    }
 
 	    
 	    if (layer.getTileX(game.input.activePointer.worldX) <= LargeurJeux - 1) // to prevent the marker from going out of bounds
 	    {
-	        marker.x = layer.getTileX(game.input.activePointer.worldX) * 100;
-	        marker.y = layer.getTileY(game.input.activePointer.worldY) * 100;
+	        marker.x = layer.getTileX(game.input.activePointer.worldX) * HauteurCase;
+	        marker.y = layer.getTileY(game.input.activePointer.worldY) * HauteurCase;
 	    }
 
 	    if (flipFlag == true) 
@@ -201,7 +201,6 @@ var Game = {
 	                    
 	                    if (masterCounter == Math.trunc(LargeurJeux*HauteurJeux/2) ) {
 	                        // go "win"
-	                        youWin = 'Got them all!';
 	                        this.state.start('Game_Win');
 	                    }                       
 	                }
@@ -326,27 +325,26 @@ var Game = {
 	//
 	render: function() {
 
-	var posx = LargeurJeux *100 +20;
-	    //game.debug.text('LargeurJeux : '+LargeurJeux, posx, 40, 'rgb(255,0,0)');
-	    game.debug.text(timesUp, posx, 75, 'rgb(0,255,0)');
-	    game.debug.text(youWin, posx, 100, 'rgb(0,255,0)');
-
-	    game.debug.text('Temps: ' + myCountdownSeconds, posx, 15, 'rgb(0,255,0)');
+	
+	    //game.debug.text('LargeurJeux : '+LargeurJeux, InfoPosX, 40, 'rgb(255,0,0)');
+	    game.debug.text(timesUp, InfoPosX, 75, 'rgb(0,255,0)');
+	    
+	    game.debug.text('Temps: ' + myCountdownSeconds, InfoPosX, 15, 'rgb(0,255,0)');
 
 	    //game.debug.text('squareCounter: ' + squareCounter, 620, 272, 'rgb(0,0,255)');
-	    game.debug.text('Paires Trouvées: ' + masterCounter, posx, 40, 'rgb(0,0,255)');
+	    game.debug.text('Paires Trouvées: ' + masterCounter, InfoPosX, 40, 'rgb(0,0,255)');
 
-	    //game.debug.text('startList: ' + myString1, posx, 208, 'rgb(255,0,0)');
-	    //game.debug.text('squareList: ' + myString2, posx, 240, 'rgb(255,0,0)');
+	    //game.debug.text('startList: ' + myString1, InfoPosX, 208, 'rgb(255,0,0)');
+	    //game.debug.text('squareList: ' + myString2, InfoPosX, 240, 'rgb(255,0,0)');
 
 
 	    //game.debug.text('Tile: ' + map.getTile(layer.getTileX(marker.x), layer.getTileY(marker.y)).index, 620, 48, 'rgb(255,0,0)');
 
-	    //game.debug.text('LayerX: ' + layer.getTileX(marker.x), posx, 80, 'rgb(255,0,0)');
-	    //game.debug.text('LayerY: ' + layer.getTileY(marker.y), posx, 112, 'rgb(255,0,0)');
+	    //game.debug.text('LayerX: ' + layer.getTileX(marker.x), InfoPosX, 80, 'rgb(255,0,0)');
+	    //game.debug.text('LayerY: ' + layer.getTileY(marker.y), InfoPosX, 112, 'rgb(255,0,0)');
 
-	    //game.debug.text('Tile Position: ' + currentTilePosition, posx, 144, 'rgb(255,0,0)');
-	    //game.debug.text('Hidden Tile: ' + getHiddenTile(), posx, 176, 'rgb(255,0,0)');
+	    //game.debug.text('Tile Position: ' + currentTilePosition, InfoPosX, 144, 'rgb(255,0,0)');
+	    //game.debug.text('Hidden Tile: ' + getHiddenTile(), InfoPosX, 176, 'rgb(255,0,0)');
 	}
 
 }

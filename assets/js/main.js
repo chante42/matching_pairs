@@ -1,10 +1,14 @@
 var game;
-var LargeurJeux = 8;
+var LargeurJeux = 3;
 //var HauteurJeux = LargeurJeux;
-var HauteurJeux = 8;
+var HauteurJeux = 3;
+var HauteurCase = 100;
+
+var HauteurJeuxPixel = HauteurJeux * HauteurCase;
+var LargeurJeuxPixel = LargeurJeux *HauteurCase +210 ;
 
 // Create a new game instance 600px wide and 450px tall:
-game = new Phaser.Game(LargeurJeux *100 +210 , HauteurJeux * 100, Phaser.CANVAS, 'phaser-example');
+game = new Phaser.Game(LargeurJeuxPixel, HauteurJeuxPixel, Phaser.CANVAS, 'phaser-example');
 
 
 // First parameter is how our state will be called.
