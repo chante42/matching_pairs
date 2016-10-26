@@ -44,6 +44,7 @@ var Game = {
 	    
 	    game.load.image('tiles', './assets/images/phaser_tiles.png');
 	    game.load.image('fondScore', './assets/images/fondScore.png');
+	    game.load.image("button", "./assets/images/button-92x31.png", false);
 
 	    // Repositionne toutes les variables ici, pour le cas ou on rejoue
 	    //
@@ -66,7 +67,7 @@ var Game = {
 	//
 	create : function()  {
 
-	    map = game.add.tilemap('matching');
+		map = game.add.tilemap('matching');
 
 
 	    map.addTilesetImage('Desert', 'tiles');
@@ -84,6 +85,7 @@ var Game = {
 	    marker.y = 0;
 
 	    this.randomizeTiles();
+   
 
 	    this.leftKey   = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 	    this.rightKey  = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
@@ -96,6 +98,11 @@ var Game = {
 	        Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR ]);
 	    
 	    fondScore = game.add.tileSprite(LargeurJeux* HauteurCase, 0, 210 , 800,'fondScore');
+
+	    // positionne le bouton menu
+	    var menuBtn = game.add.button(InfoPosX, 100, "button", () => {this.state.start('Menu');}, this);
+        menuBtn.addChild(new Phaser.Text(this.game, 5, 3, "Menu", { font: "bold 22px sans-serif", fill: '#ffffff' }));
+
 	    //debug
 	    //flipOverAll();
 	},

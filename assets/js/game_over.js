@@ -22,7 +22,7 @@ var Game_Over = {
     startGame: function () {
 
         // Change the state back to Game.
-        this.state.start('Game');
+        this.state.start('Menu');
 
     }
 
