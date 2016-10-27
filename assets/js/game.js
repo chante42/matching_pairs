@@ -101,7 +101,7 @@ var Game = {
 
 	    // positionne le bouton menu
 	    var menuBtn = game.add.button(InfoPosX, 100, "button", () => {this.state.start('Menu');}, this);
-        menuBtn.addChild(new Phaser.Text(this.game, 5, 3, "Menu", { font: "bold 22px sans-serif", fill: '#ffffff' }));
+        menuBtn.addChild(new Phaser.Text(this.game, 17, 3, "Menu", { font: "bold 22px sans-serif", fill: '#ffffff' }));
 
 	    //debug
 	    //flipOverAll();
