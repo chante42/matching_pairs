@@ -10,6 +10,9 @@ var LargeurJeuxPixel = LargeurJeux *HauteurCase +210 ;
 // Create a new game instance 600px wide and 450px tall:
 game = new Phaser.Game(LargeurJeuxPixel, HauteurJeuxPixel, Phaser.CANVAS, 'phaser-example');
 
+function UrlParametre (sVar) {
+  return unescape(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + escape(sVar).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+}
 
 // First parameter is how our state will be called.
 // Second parameter is an object containing the needed methods for state functionality

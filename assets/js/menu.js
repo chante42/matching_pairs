@@ -53,7 +53,7 @@ var Menu = {
         var x2 = LargeurJeuxPixel / 2 + 10;
         var ratio = HauteurJeuxPixel / (9 *100)+0.8;
         var y  = HauteurJeuxPixel / 2 - 100 * ratio;
-           
+        console.log('ratio : '+ ratio);
 
         // image de fond
         this.add.button(0, 0, 'menu');
@@ -63,7 +63,7 @@ var Menu = {
         playBtn.anchor.setTo(0.5,0.5);
 
         // bouton règle du jeux
-        var helpBtn = game.add.button(10 * ratio, y +  160 * ratio,"button", this.aide, this);
+        var helpBtn = game.add.button(10 * ratio, HauteurJeuxPixel - 40 *ratio  ,"button", this.aide, this);
         helpBtn.tint = 0x00ff00;
         helpBtn.addChild(new Phaser.Text(this.game, 5, 6, "Règles du jeux", { font: "bold 12px sans-serif", fill: '#ffffff' }));
 
@@ -101,16 +101,9 @@ var Menu = {
         this.click(this.NiveauBtn[buttonIndice[LargeurJeux]]);
 
         // creation de l'ecran d'aide
+        var style = { font: "bold "+11*ratio*ratio+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
         AideEcran = game.add.button(0,0, "aide", this.aideFin, this);
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 2, "L'objectif est de trouver des paires de lettre, ",  { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 24, "qui sont representé par des lettre Alpha,",  { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 46, "scribe ou manuscrite.", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 68, "Pour cela, il faut cliquer avec la souris sur le ", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 90, "dos de la carte,pour faire apparaitre la lettre. ", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 112, "Quand 2 lettre sont retournés, si elle forme une", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 134, "paire elle reste dans cet état.", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 156, "1 point est ajouté au score.", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 178, "Sinon les 2 cartes reviennes en position initialle.", { font: "bold 18px sans-serif", fill: '#ffffff' }));
+        AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est de trouver des paires de lettre, qui sont representées par des lettres Alpha, scribe ou manuscrite. Pour cela, il faut cliquer avec la souris sur le dos de la carte,pour faire apparaitre la lettre.\nQuand 2 lettres sont retournées, si elle forme une paire elle reste dans cet état.\n1 point est ajouté au score.\nSinon les 2 cartes reviennes en position initiale.",  style));
         AideEcran.visible = false;
 
 

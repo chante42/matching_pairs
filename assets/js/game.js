@@ -41,8 +41,19 @@ var Game = {
 	preload: function() {
 
 	    game.load.tilemap('matching', './assets/images/phaser_tiles.json', null, Phaser.Tilemap.TILED_JSON);
-	    
-	    game.load.image('tiles', './assets/images/phaser_tiles.png');
+
+		if (UrlParametre("typeMemory") == 'AlphaCursif'){
+				game.load.image('tiles', './assets/images/phaser_tiles - Alpha cursif.png');
+		}
+		else if (UrlParametre("typeMemory") == 'AlphaScript'){
+				game.load.image('tiles', './assets/images/phaser_tiles - Alpha script.png');
+		}
+		else if (UrlParametre("typeMemory") == 'CursifScript'){
+				game.load.image('tiles', './assets/images/phaser_tiles - cursif script.png');
+		}
+		else {
+	    	game.load.image('tiles', './assets/images/phaser_tiles.png');
+	    }
 	    game.load.image('fondScore', './assets/images/fondScore.png');
 	    game.load.image("button", "./assets/images/button-92x31.png", false);
 
