@@ -348,7 +348,7 @@ var Game = {
 	    //game.debug.text('LargeurJeux : '+LargeurJeux, InfoPosX, 40, 'rgb(255,0,0)');
 	    game.debug.text(timesUp, InfoPosX, 75, 'rgb(0,255,0)');
 	    
-	    game.debug.text('Temps: ' + myCountdownSeconds, InfoPosX, 15, 'rgb(0,255,0)');
+	    game.debug.text('Temps: ' + myCountdownSeconds.toFixed(), InfoPosX, 15, 'rgb(0,255,0)');
 
 	    //game.debug.text('squareCounter: ' + squareCounter, 620, 272, 'rgb(0,0,255)');
 	    game.debug.text('Paires Trouvées: ' + masterCounter, InfoPosX, 40, 'rgb(0,0,255)');

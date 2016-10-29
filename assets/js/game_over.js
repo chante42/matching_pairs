@@ -13,7 +13,7 @@ var Game_Over = {
 
         // Add text with information about the score from last game.
         game.add.text(20, HauteurJeuxPixel/6, "PERDU ...", { font: "bold 48px sans-serif", fill: "#46c0f9", align: "center"});
-        game.add.text(20, HauteurJeuxPixel/6 * 4, "Vous avez trouvez  : "+masterCounter+" paires", { font: "bold 16px sans-serif", fill: "#46c0f9", align: "center"});
+        game.add.text(20, HauteurJeuxPixel/6 * 4, "Vous SCORE  : "+masterCounter+" (paires)", { font: "bold 16px sans-serif", fill: "#46c0f9", align: "center"});
         game.add.text(LargeurJeuxPixel/6, HauteurJeuxPixel/6 *5 , "cliquez pour recommencer", { font: "bold 12px sans-serif", fill: "#fff", align: "center" });
 
         audio = game.add.audio('audioLoose');
