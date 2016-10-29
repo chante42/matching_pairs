@@ -285,10 +285,11 @@ var Game = {
 	    for (i = 1; i<= (LargeurJeux*HauteurJeux)/2;i++ ) {
 	        var random;
 
-	        random = i;
-	        if (i > NbCaseRemplie/2) {
-	            random = game.rnd.integerInRange(1,NbCaseRemplie/2);
+	        random = -1;
+	        while (random == -1 || startList.indexOf(random) == 0) {
+	        	random = game.rnd.integerInRange(1,NbCaseRemplie/2);
 	        }
+	        
 	        // permet que ce ne soit pas toujours la premiere partie de l image en premeier
 	        startList.push(random);
 	        startList.push(random+ 32);
